@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    font-size: 1.3vw;
+}
+h1{
+    color: red;
+    text-shadow: 0.1vw 0px aqua;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 2vw;
+}
+.calculator{
+    margin: auto;
+    margin-top: 2.86vw;
+    height: 34vw;
+    width: 28vw;
+    background-color: rgb(92, 89, 89);
+    border-radius: 0.25vw;
+    padding-top: 1.14vw;
+}
+.inp{
+    height: 3.9vw;
+    width: 24vw;
+    background-color: rgb(81, 219, 201);
+
+    border: none;
+}
+.inp-1{
+    border-top-left-radius: 0.25vw;
+    border-top-right-radius: 0.25vw;
+}
+.inp-2{
+    border-bottom-left-radius: 0.25vw;
+    border-bottom-right-radius: 0.25vw;
+    text-align: end;
+}
+.screen{
+    margin: auto;
+    margin-top: 0.57vw;
+    height: 8.02vw;
+    width: 24vw;
+    background-color: rgb(81, 219, 201);
+    border-radius: 0.25vw;
+}
+.buttons{
+    margin: auto;
+    margin-left: 2.2vw;
+    margin-top: 2.29vw;
+}
+.learn{
+    opacity: 0;
+    position: absolute;
+    top: 11.45vw;
+    left: 35vw;
+}
+button{
+    height: 3.1vw;
+    width: 4.5vw;
+    border-radius: 0.3vw;
+    border: none;
+    color: white;
+    background-color: gray;
+}
+.row{
+    margin-top: 0.4vw;
+}
+.orange{
+    color: orange;
+}
+.red{
+    color: red;
+}
+.no{
+    margin-left: 12vw;
+}
+

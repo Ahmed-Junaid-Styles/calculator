@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            font-size: 1.3vw;
+        }
+
+        h1 {
+            color: red;
+            text-shadow: 0.1vw 0px aqua;
+            text-decoration: underline;
+            text-align: center;
+            font-size: 2vw;
+        }
+
+        .calculator {
+            margin: auto;
+            margin-top: 2.86vw;
+            height: 34vw;
+            width: 28vw;
+            background-color: rgb(92, 89, 89);
+            border-radius: 0.25vw;
+            padding-top: 1.14vw;
+        }
+
+        .inp {
+            height: 3.9vw;
+            width: 24vw;
+            background-color: rgb(81, 219, 201);
+            border: none;
+            position: relative;
+            left: -0.5vw;
+        }
+
+        .inp-1 {
+            border-top-left-radius: 0.25vw;
+            border-top-right-radius: 0.25vw;
+        }
+
+        .inp-2 {
+            border-bottom-left-radius: 0.25vw;
+            border-bottom-right-radius: 0.25vw;
+            text-align: end;
+        }
+
+        .screen {
+            margin: auto;
+            margin-top: 0.57vw;
+            height: 8.02vw;
+            width: 24vw;
+            background-color: rgb(81, 219, 201);
+            border-radius: 0.25vw;
+        }
+
+        .buttons {
+            margin: auto;
+            margin-left: 2.2vw;
+            margin-top: 2.29vw;
+        }
+
+        .learn {
+            opacity: 0;
+            position: absolute;
+            top: 11.45vw;
+            left: 35vw;
+        }
+
+        div button {
+            padding: 0;
+            font-size: 1.2vw;
+            height: 3.1vw;
+            width: 4.5vw;
+            border-radius: 0.3vw;
+            border: none;
+            color: white;
+            background-color: gray;
+        }
+
+        div button:active {
+            background-color: rgb(109, 107, 107);
+        }
+
+        .row {
+            margin-top: 0.4vw;
+        }
+
+        .orange {
+            color: orange;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .no {
+            margin-left: 12vw;
+        }
+
+        .history-btn,
+        .clear-btn {
+            margin: 0px 1vw;
+            padding: 0.4vw 0.8vw;
+            border: none;
+            border-radius: 0.5vw;
+            color: white;
+            background-color: gray;
+        }
+
+        .his-span {
+            margin-top: 2vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .his-status {
+            display: flex;
+            justify-content: center;
+            background-color: aqua;
+            margin-left: 35vw;
+            margin-right: 35vw;
+            visibility: hidden;
+            margin-top: 1vh;
+            border-radius: 0.3vw;
+        }
+
+        .his-span {
+            visibility: hidden;
+        }
+
+        .last-row {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to MyCalculator </h1>
+    <div class="calculator">
+        <div class="screen">
+            <input type="text" class="inp inp-1">
+            <input type="text" class="inp inp-2">
+        </div>
+        <div class="buttons">
+            <div class="row">
+                <button class="element orange">More</button>
+                <button class="element">%</button>
+                <button class="element">(</button>
+                <button class="element">)</button>
+                <button class="element orange others">Others</button>
+            </div>
+            <div class="row">
+                <button class="element">√</button>
+                <button class="element">sin</button>
+                <button class="element">cos</button>
+                <button class="element">tan</button>
+                <button class="element">e</button>
+            </div>
+            <div class="row">
+                <button class="element">7</button>
+                <button class="element">8</button>
+                <button class="element">9</button>
+                <button class="element red">Del</button>
+                <button class="element red">AC</button>
+            </div>
+            <div class="row">
+                <button class="element">4</button>
+                <button class="element">5</button>
+                <button class="element">6</button>
+                <button class="element">×</button>
+                <button class="element">÷</button>
+            </div>
+            <div class="row">
+                <button class="element">1</button>
+                <button class="element">2</button>
+                <button class="element">3</button>
+                <button class="element">+</button>
+                <button class="element">-</button>
+            </div>
+            <div class="row">
+                <button class="element">0</button>
+                <button class="element">00</button>
+                <button class="element">π</button>
+                <button class="element">.</button>
+                <button class="element">=</button>
+            </div>
+            <div class="row last-row">
+                <button class="element">csc</button>
+                <button class="element">sec</button>
+                <button class="element">cot</button>
+                <button class="element">log</button>
+                <button class="element">ln</button>
+            </div>
+        </div>
+    </div>
+    <span class="his-span">
+        <button class="history-btn">
+            History
+        </button>
+        <button class="clear-btn">
+            Clear
+        </button>
+    </span>
+    <span class="his-status">
+        <span class="his-item">
+
+        </span>
+    </span>
+
+    <script>
+        var a = document.querySelector('.buttons')
+        var b = document.querySelector('.inp-1')
+        var c = document.querySelector('.inp-2')
+        var d = document.querySelectorAll('.element')
+        var e = document.querySelector('.row')
+        var his = document.querySelector('.history-btn')
+        var clear = document.querySelector('.clear-btn')
+        var hisItem = document.querySelector('.his-item')
+
+        localStorage.clear();
+        function localAdd() {
+            switch (localStorage.getItem('calculate')) {
+                case null:
+                    question = []
+                    question.push(b.value)
+                    break;
+                default:
+                    question = JSON.parse(localStorage.getItem('calculate'))
+                    question.push(b.value)
+                    break;
+            }
+            switch (localStorage.getItem('answer')) {
+                case null:
+                    answer = []
+                    answer.push(c.value)
+                    break;
+                default:
+                    answer = JSON.parse(localStorage.getItem('answer'))
+                    answer.push(c.value)
+                    break;
+            }
+        }
+        function roundOff() {
+            if (c.value > 9999999 && c.value < 99999999) {
+                c.value = c.value.slice(0, 12)
+            }
+            if (c.value > 999999 && c.value < 9999999) {
+                c.value = c.value.slice(0, 11)
+            }
+            if (c.value > 99999 && c.value < 999999) {
+                c.value = c.value.slice(0, 10)
+            }
+            if (c.value > 9999 && c.value < 99999) {
+                c.value = c.value.slice(0, 9)
+            }
+            if (c.value > 999 && c.value < 9999) {
+                c.value = c.value.slice(0, 8)
+            }
+            if (c.value > 99 && c.value < 999) {
+                c.value = c.value.slice(0, 7)
+            }
+            else {
+                c.value = c.value.slice(0, 6)
+            }
+        }
+        function trignometry() {
+            if (b.value.indexOf('sin(') >= 0) {
+                Ione = b.value.indexOf('sin(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.sin((now / 57.3))
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('sin', '')
+            }
+            if (b.value.indexOf('cos(') >= 0) {
+                Ione = b.value.indexOf('cos(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.cos((now / 57.3))
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('cos', '')
+            }
+            if (b.value.indexOf('sec(') >= 0) {
+                Ione = b.value.indexOf('sec(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.cos((now / 57.3))
+                then = 1/then
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('sec', '')
+            }
+            if (b.value.indexOf('csc(') >= 0) {
+                Ione = b.value.indexOf('csc(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.sin((now / 57.3))
+                then = 1/then
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('csc', '')
+            }
+            if (b.value.indexOf('tan(') >= 0) {
+                Ione = b.value.indexOf('tan(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.sin((now / 57.3))/Math.cos((now / 57.3))
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('tan', '')
+            }
+            if (b.value.indexOf('cot(') >= 0) {
+                Ione = b.value.indexOf('cot(') + 4
+                Itwo = b.value.indexOf(')')
+                now = b.value.slice(Ione, Itwo)
+                then = Math.cos((now / 57.3))/Math.sin((now / 57.3))
+                then = then.toFixed(4)
+                b.value = b.value.replaceAll(now, then)
+                b.value = b.value.replaceAll('cot', '')
+            }
+        }
+        function piAnde() {
+            if (b.value.charAt(b.value.indexOf('e') - 1) == '+' || b.value.charAt(b.value.indexOf('e') - 1) == '-' || b.value.indexOf('e') == 0 || b.value.indexOf('e') - 3 == b.value.indexOf('ln(') || b.value.indexOf('e') - 4 == b.value.indexOf('log(')) {
+                b.value = b.value.replaceAll('e', '2.718281856')
+            } else {
+                b.value = b.value.replaceAll('e', '*2.718281856')
+            }
+            if (b.value.charAt(b.value.indexOf('π') - 1) == '+' || b.value.charAt(b.value.indexOf('π') - 1) == '-' || b.value.indexOf('π') == 0) {
+                b.value = b.value.replaceAll('π', '3.1415926')
+            } else {
+                b.value = b.value.replaceAll('π', '*3.1415926')
+            }
+        }
+        Array.from(d).forEach((z) => {
+            let val = '';
+            z.onclick = () => {
+                val = b.value;
+                val2 = c.value;
+                switch (z.innerHTML) {
+                    case 'AC':
+                        b.value = '';
+                        c.value = '';
+                        break;
+                    case '=':
+                        trignometry();
+                        piAnde();
+                        if (b.value.indexOf('ln(') >= 0) {
+                            Ione = b.value.indexOf('ln(') + 3
+                            Itwo = b.value.indexOf(')')
+                            now = b.value.slice(Ione, Itwo)
+                            then = Math.log(now)
+                            then = then.toFixed(4)
+                            b.value = b.value.replaceAll(now, then)
+                            b.value = b.value.replaceAll('ln', '')
+                        } else if (b.value.indexOf('log(') >= 0) {
+                            Ione = b.value.indexOf('log(') + 4
+                            Itwo = b.value.indexOf(')')
+                            now = b.value.slice(Ione, Itwo)
+                            then = Math.log(now) / Math.log(10)
+                            then = then.toFixed(4)
+                            b.value = b.value.replaceAll(now, then)
+                            b.value = b.value.replaceAll('log', '')
+                        }
+                        
+                        b.value = b.value.replaceAll('×', '*')
+                        b.value = b.value.replaceAll('÷', '/')
+                        b.value = b.value.replaceAll('%', '/100')
+                        c.value = b.value.replaceAll('%', '/100')
+                        c.value = eval(b.value);
+                        roundOff()
+                        b.value = b.value.replaceAll('*', '×')
+                        b.value = b.value.replaceAll('/', '÷')
+                        localAdd();
+                        let ii = JSON.parse(localStorage.getItem('calculate'))
+                        if (ii == null) {
+                            localStorage.setItem(['calculate'], JSON.stringify(question))
+                            localStorage.setItem(['answer'], JSON.stringify(answer))
+                        }
+                        else if (ii[ii.length - 1] == b.value) {
+
+                        } else {
+                            localStorage.setItem(['calculate'], JSON.stringify(question))
+                            localStorage.setItem(['answer'], JSON.stringify(answer))
+                        }
+                        hisItem.innerHTML = ''
+                        for (i = 0; i < JSON.parse(localStorage.getItem('calculate')).length; i++) {
+                            hisItem.innerHTML +=
+                                `<div style="color:red; font-size: 1.2em">Q${i + 1}: ${JSON.parse(localStorage.getItem('calculate'))[i]}</div>
+                            <div style="color:green; font-size: 1.2em">Ans${i + 1}: ${JSON.parse(localStorage.getItem('answer'))[i]}</div>`
+                        }
+                        break;
+                    case 'Del':
+                        delFun = JSON.stringify(b.value);
+                        b.value = delFun.slice(1, b.value.length);
+                        break;
+                    case '00':
+                        if (b.value != "") {
+                            b.value = val + '00';
+                        }
+                        break;
+                    case '√':
+                        b.value = JSON.stringify(Math.sqrt(b.value));
+                        b.value = b.value.slice(0, 6)
+                        break;
+                    case 'log':
+                        // b.value = Math.log(b.value) / Math.log(10)
+                        // b.value = b.value.slice(0, 6)
+                        b.value += 'log('
+                        break;
+                    case 'ln':
+                        // b.value = Math.log(b.value)
+                        b.value += 'ln('
+                        break;
+                    case 'More':
+                        document.querySelector('.his-span').style.visibility = "visible"
+                        break;
+                    case 'Others':
+                        document.querySelector('.last-row').style.visibility = "visible"
+                        document.querySelector('.calculator').style.height = "37vw"
+                        document.querySelector('.others').innerHTML = 'Pre'
+                        break;
+                    case 'Pre':
+                        huhu = JSON.parse(localStorage.getItem('calculate'))
+                        b.value = huhu[huhu.length-1]
+                        break;
+                    case 'sin':
+                        b.value += 'sin('
+                        break;
+                    case 'sec':
+                        b.value += 'sec('
+                        break;
+                    case 'cos':
+                        b.value += 'cos('
+                        break;
+                    case 'cot':
+                        b.value += 'cot('
+                        break;
+                    case 'csc':
+                        b.value += 'csc('
+                        break;
+                    case 'tan':
+                        b.value += 'tan('
+                        break;
+                    default:
+                        b.value = val + z.innerHTML;
+                }
+            }
+        })
+
+        his.onclick = () => {
+            if (document.querySelector('.his-status').style.visibility == "visible") {
+                document.querySelector('.his-status').style.visibility = "hidden"
+            } else {
+                document.querySelector('.his-status').style.visibility = "visible"
+            }
+        }
+        clear.onclick = () => {
+            localStorage.clear();
+            hisItem.innerHTML = ''
+        }
+    </script>
+</body>
+
+</html>
